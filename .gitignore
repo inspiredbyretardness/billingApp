@@ -1,0 +1,5 @@
+/node_modules
+node_modules/
+/billApp-backend/node_modules/
+billApp-backend/node_modules/
+.env
