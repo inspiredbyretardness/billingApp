@@ -10,7 +10,7 @@ const getAllMetalls = asyncHandler(async(req,res)=>{
       res.json(metals)
     } catch (error) {
         console.log(error);
-        res.sendStatus(400).json(error)
+        res.json(error.errors)
     }
 })
 
@@ -23,7 +23,7 @@ const saveMetal = asyncHandler(async(req,res)=>{
         console.log(saveAMetal);
     } catch (error) {
         console.log(error);
-        res.sendStatus(400).json(error)
+        res.json(error.errors)
     }
 })
 const getAllStone = asyncHandler(async(req,res)=>{
@@ -32,7 +32,7 @@ const getAllStone = asyncHandler(async(req,res)=>{
         res.json(getStones)
     } catch (error) {
         console.log(error);
-        res.sendStatus(400).json(error)
+        res.json(error.errors)
     }
 })
 const saveStone = asyncHandler(async(req,res)=>{
@@ -41,7 +41,7 @@ const saveStone = asyncHandler(async(req,res)=>{
         const save = await Stone.create({stoneName,isPrecious})
         res.json(save)
     } catch (error) {
-        res.json(error)
+        res.json(error.errors)
     }
 })
 module.exports = {getAllMetalls,saveMetal,getAllStone,saveStone} 
