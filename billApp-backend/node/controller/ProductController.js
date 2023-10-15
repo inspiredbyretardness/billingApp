@@ -12,7 +12,7 @@ const getProducts = asyncHandler(async(req,res)=>{
 })
 
 const saveProduct = asyncHandler(async(req,res)=>{
-    const {productId,productName,metal,grossWeight,makingCharges,wastage,isStone,stones,stoneWeight} = req.body;
+    const {productId,productName,metal,grossWeight,makingCharges,wastage,isStone,stones,stoneWeight,} = req.body;
     try {
         const saveAProduct = await Product.create({productId,productName,metal,grossWeight,makingCharges,wastage,isStone,stones,stoneWeight})
         res.json(saveAProduct)
