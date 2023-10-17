@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"metalName\":\"Titanium\"\r\n}",
+					"raw": "{\r\n    \"metalName\":\"Platinum\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stoneName\":\"Diamond\",\r\n    \"isPrecious\":true\r\n}",
+					"raw": "{\r\n    \"stoneName\":\"Diaspore\",\r\n    \"isPrecious\":true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -106,10 +106,12 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "graphql",
-					"graphql": {
-						"query": "",
-						"variables": ""
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": \"G10000014\",\r\n  \"productName\": \"Ear Rings\",\r\n  \"productDescription\": \"Ear Rings\",\r\n  \"grossWeight\": 30,\r\n  \"netWeight\": 29,\r\n  \"makingCharges\": 2,\r\n  \"wastage\": 0.5,\r\n  \"metal\": \"652e3c6f2c4133883e0c313c\",\r\n  \"isStone\": true,\r\n  \"stoneWeight\": 3,\r\n  \"stones\": [\"652e3c8c2c4133883e0c3142\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
 				},
 				"url": {
@@ -152,7 +154,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"BillId\":\"G20231068\",\r\n    \"name\":\"Test 3\",\r\n    \"phone\":1234567890,\r\n    \"email\":\"test@test.com\",\r\n    \"pan\":\"ABC2314356\",\r\n    \"address\":\"test address\",\r\n    \"product\":[\"652bdb9a238aaf1b609e8a68\"],\r\n    \"notes\":\"Test Notes\",\r\n    \"paymentMethod\":\"UPI\"\r\n}",
+					"raw": "{\r\n  \"BillId\": \"G20231067\",\r\n  \"date\": \"15/10/2023\",\r\n  \"time\": \"6:53:50 PM\",\r\n  \"name\": \"Test 2\",\r\n  \"phone\": \"1234567890\",\r\n  \"email\": \"test@test.com\",\r\n  \"pan\": \"ABC2314356\",\r\n  \"address\": \"test address\",\r\n  \"product\": [\"652e3eab2c4133883e0c3156\"],\r\n  \"notes\": \"Test Notes\",\r\n  \"paymentMethod\": \"UPI\",\r\n  \"transctionId\":\"abh424928dj\"\r\n }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,7 +181,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3200/billing/getBill/652be3bbddc278ec9401aa65",
+					"raw": "localhost:3200/billing/getBill/652e3fb22c4133883e0c3160",
 					"host": [
 						"localhost"
 					],
@@ -187,7 +189,7 @@
 					"path": [
 						"billing",
 						"getBill",
-						"652be3bbddc278ec9401aa65"
+						"652e3fb22c4133883e0c3160"
 					]
 				}
 			},
