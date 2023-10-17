@@ -11,8 +11,12 @@ const Billing = mongoose.Schema({
     address:{type:String,required:false},
     product:[{type: mongoose.Types.ObjectId, ref: "Product"}],
     notes:{type:String,required:false},
+    billAmt:{type:Number,required:true},
     paymentMethod:{type:String,required:true},
     transctionId:{type:String,required:true}
+    
+},{
+  timestamps: true
 })
 
 const billing = mongoose.model("Billing",Billing)

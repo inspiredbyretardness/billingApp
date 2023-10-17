@@ -6,6 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import api from './config/services'
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -53,6 +54,19 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
+  const [orders,setOrders] = React.useState([]);
+  const getAllOrders = async ()=>{
+    try {
+      const { data } = await api.get("/billing/getAllOrders")
+      setOrders(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  React.useEffect(()=>{
+      getAllOrders()
+  },[])
+  
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
@@ -61,21 +75,24 @@ export default function Orders() {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
+            <TableCell>Adresss</TableCell>
+            <TableCell>Jewellery</TableCell>            
             <TableCell>Payment Method</TableCell>
             <TableCell align="right">Sale Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
+          {orders.map((row) => {
+            return(
+            <TableRow key={row.BillId}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
+              <TableCell>{row.address}</TableCell>
+              <TableCell>{row.product.map((j)=>j.productName).join(", ")}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
-            </TableRow>
-          ))}
+              <TableCell align="right">{`Rs ${row.billAmt}`}</TableCell>
+            </TableRow>)
+          })}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
