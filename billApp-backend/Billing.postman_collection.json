@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "32330898-bce6-435b-aefd-70f786a9c43e",
+		"_postman_id": "ba5c5a3f-ea60-4280-b6dd-89ed0cdb1570",
 		"name": "Billing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "4906243"
@@ -154,7 +154,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"BillId\": \"G20231067\",\r\n  \"date\": \"15/10/2023\",\r\n  \"time\": \"6:53:50 PM\",\r\n  \"name\": \"Test 2\",\r\n  \"phone\": \"1234567890\",\r\n  \"email\": \"test@test.com\",\r\n  \"pan\": \"ABC2314356\",\r\n  \"address\": \"test address\",\r\n  \"product\": [\"652e3eab2c4133883e0c3156\"],\r\n  \"notes\": \"Test Notes\",\r\n  \"paymentMethod\": \"UPI\",\r\n  \"transctionId\":\"abh424928dj\"\r\n }",
+					"raw": "{\r\n  \"BillId\": \"G20231069\",\r\n  \"name\": \"Test 6\",\r\n  \"phone\": \"1234567890\",\r\n  \"email\": \"test@test.com\",\r\n  \"pan\": \"ABC2314356\",\r\n  \"address\": \"test address\",\r\n  \"product\": [\"652e3eab2c4133883e0c3156\"],\r\n  \"notes\": \"Test Notes\",\r\n  \"billAmt\":30000,\r\n  \"paymentMethod\": \"Credit Card\",\r\n  \"transctionId\":\"abh424928dj\"\r\n }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -190,6 +190,141 @@
 						"billing",
 						"getBill",
 						"652e3fb22c4133883e0c3160"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3200/billing/getAllOrders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"billing",
+						"getAllOrders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSum",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3200/billing/getSum",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"billing",
+						"getSum"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addStock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stockId\":\"GS1021705\",\r\n    \"product\":\"652e3dca2c4133883e0c3152\",\r\n    \"quantity\":3,\r\n    \"notes\":\"Test notes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3200/stock/addStock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"stock",
+						"addStock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStock",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3200/stock/updateStock/6533d59e99a84fa167c1b492",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"stock",
+						"updateStock",
+						"6533d59e99a84fa167c1b492"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getStock",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3200/stock/getStock/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"stock",
+						"getStock",
+						""
 					]
 				}
 			},
