@@ -7,17 +7,19 @@ const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config();
 
-const miscRoutes = require("./routes/MiscRoutes")
-const productRoutes = require("./routes/ProductRoutes")
-const billingRoutes = require("./routes/BillingRoutes")
+const miscRoutes = require("./routes/MiscRoutes");
+const productRoutes = require("./routes/ProductRoutes");
+const billingRoutes = require("./routes/BillingRoutes");
+const stockRoutes = require("./routes/StockRoutes");
 
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 
-app.use("/misc",miscRoutes)
-app.use("/product",productRoutes)
-app.use("/billing",billingRoutes)
+app.use("/misc",miscRoutes);
+app.use("/product",productRoutes);
+app.use("/billing",billingRoutes);
+app.use("/stock",stockRoutes);
 
 const server = app.listen(3200, console.log("Listening in 3200"));
 connectDB();

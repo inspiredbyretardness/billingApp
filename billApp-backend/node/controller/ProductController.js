@@ -7,14 +7,15 @@ const getProducts = asyncHandler(async(req,res)=>{
         const getAllProducts = await Product.find({}).populate('metal').populate('stones')
         res.json(getAllProducts)
     } catch (error) {
-        res.json(error)
+        console.log(error.errors);
+        res.json(error.errors)
     }
 })
 
 const saveProduct = asyncHandler(async(req,res)=>{
-    const {productId,productName,productDescription,metal,grossWeight,netWeight,makingCharges,wastage,isStone,stones,stoneWeight,} = req.body;
+    const {productId,productName,productDescription,metal,grossWeight,netWeight,caretGold,caretStone,makingCharges,wastage,isStone,stones,stoneWeight,notes} = req.body;
     try {
-        const saveAProduct = await Product.create({productId,productName,productDescription,metal,grossWeight,netWeight,makingCharges,wastage,isStone,stones,stoneWeight})
+        const saveAProduct = await Product.create({productId,productName,productDescription,metal,grossWeight,netWeight,caretGold,caretStone,makingCharges,wastage,isStone,stones,stoneWeight,notes})
         res.json(saveAProduct)
     } catch (error) {
         console.log(error.errors);
