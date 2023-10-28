@@ -15,6 +15,7 @@ const ProductSchema = new mongoose.Schema({
     isStone: { type: Boolean, required: true },
     stoneWeight: { type: Number, required: true },
     stones:[{type: mongoose.Types.ObjectId, ref: "Stone"}],
+    stock:{type: Number, required: true},
     notes:{type:String,required:false}
 },{
     timestamps: true
