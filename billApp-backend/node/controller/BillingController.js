@@ -2,6 +2,9 @@ const asyncHandler = require("express-async-handler");
 const Billing = require("../models/BillingModel");
 const Product = require("../models/ProductModel");
 const Stock = require("../models/StockModel");
+const Customer = require("../models/Customer");
+const dayjs = require('dayjs')
+//import dayjs from 'dayjs' // ES 2015
 
 
 const getData = ()=>{
@@ -16,12 +19,16 @@ const getData = ()=>{
     return formattedToday = dd + '/' + mm + '/' + yyyy;
 }
 const saveBill = asyncHandler(async(req,res)=>{
-    const {BillId,name,phone,email,pan,address,products,notes,billAmt,paymentMethod,transctionId} = req.body;
+    const {BillId,customer,products,notes,billAmt,paymentMethod,transctionId} = req.body;
     var date = getData();
     var productsList = products
-    var time = new Date().toLocaleTimeString();
+    var timeStr = new Date()
+    var hrs = (timeStr.getHours() < 10 ? '0' : '') + timeStr.getHours()
+    var min = (timeStr.getMinutes() < 10 ? '0' : '') + timeStr.getMinutes()
+    var sec = (timeStr.getSeconds() < 10 ? '0' : '') + timeStr.getSeconds() 
+    var time = `${hrs}:${min}:${sec}`
     try {
-        const saveABilll = await Billing.create({BillId,date,time,name,phone,email,pan,address,products,notes,billAmt,paymentMethod,transctionId})
+        const saveABilll = await Billing.create({BillId,date,time,customer,products,notes,billAmt,paymentMethod,transctionId})
         var saveStock =  productsList?.map((p)=>{
            return  updateStock(p.product,p.qty)
         })
@@ -56,6 +63,9 @@ const getBill = asyncHandler(async(req,res)=>{
         path: "products.product",
         
      })
+     getABill = await await Customer.populate(getABill,{
+        path:"customer"
+     })
         res.json(getABill)
     } catch (error) {
         console.log(error);
@@ -68,6 +78,9 @@ const getAllOrders = asyncHandler(async(req,res)=>{
         getAllBills = await Product.populate(getAllBills,{
             path: "products.product",
             
+         })
+         getAllBills = await await Customer.populate(getAllBills,{
+            path:"customer"
          })
         res.json(getAllBills)
     } catch (error) {
@@ -99,6 +112,9 @@ const getRecentOrder = asyncHandler(async(req,res)=>{
             path: "products.product",
             
          })
+         getRecentOrder = await await Customer.populate(getRecentOrder,{
+            path:"customer"
+         })
         console.log(getRecentOrder);
         res.json(getRecentOrder);
     } catch (error) {
@@ -106,4 +122,55 @@ const getRecentOrder = asyncHandler(async(req,res)=>{
         res.json(error.errors)        
     }
 })
-module.exports = {saveBill,getBill,getAllOrders,getSum,getRecentOrder}
+const getTodaysOrders = asyncHandler(async(req,res)=>{
+    const start = dayjs().startOf('day').format(); // set to 12:00 am today
+    const end = dayjs().endOf('day').format(); // set to 23:59 pm today
+    console.log(start,end);
+    try {
+        var getTodaysAllOrder = await Billing.find({createdAt: {$gte: new Date(start), $lt: new Date(end)}})
+        var getTodaysHrsData =  await Billing.aggregate([
+            {
+              $match: {
+                createdAt: {
+                  "$gte": new Date(start),
+                  "$lt": new Date(end)
+                }
+              }
+            },
+            {
+              $group: {
+                _id: {
+                  $substr: [
+                    "$time",
+                    0,
+                    2
+                  ]
+                },
+                count: {
+                  "$sum": 1
+                },
+                amount: {
+                  $sum: "$billAmt"
+                }
+              }
+            },
+            {
+              $addFields: {
+                time: {
+                    $concat: [
+                      "$_id",
+                      ":00"
+                    ]
+                  }
+              }
+            }
+          ]).sort({time:1})
+        res.json(getTodaysHrsData)
+        
+    } catch (error) {
+        console.log(error);
+        res.json(error.errors)
+    }
+})
+
+module.exports = {saveBill,getBill,getAllOrders,getSum,getRecentOrder,getTodaysOrders}

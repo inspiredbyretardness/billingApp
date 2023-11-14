@@ -11,6 +11,7 @@ const miscRoutes = require("./routes/MiscRoutes");
 const productRoutes = require("./routes/ProductRoutes");
 const billingRoutes = require("./routes/BillingRoutes");
 const stockRoutes = require("./routes/StockRoutes");
+const customerRoutes = require("./routes/CustomerRoutes");
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,6 +21,7 @@ app.use("/misc",miscRoutes);
 app.use("/product",productRoutes);
 app.use("/billing",billingRoutes);
 app.use("/stock",stockRoutes);
+app.use("/customer",customerRoutes);
 
 const server = app.listen(3200, console.log("Listening in 3200"));
 connectDB();
