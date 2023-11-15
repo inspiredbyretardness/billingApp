@@ -7,7 +7,7 @@ const dayjs = require('dayjs')
 //import dayjs from 'dayjs' // ES 2015
 
 
-const getData = ()=>{
+const getDate = ()=>{
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
@@ -20,7 +20,7 @@ const getData = ()=>{
 }
 const saveBill = asyncHandler(async(req,res)=>{
     const {BillId,customer,products,notes,billAmt,paymentMethod,transctionId} = req.body;
-    var date = getData();
+    var date = getDate();
     var productsList = products
     var timeStr = new Date()
     var hrs = (timeStr.getHours() < 10 ? '0' : '') + timeStr.getHours()
@@ -172,5 +172,23 @@ const getTodaysOrders = asyncHandler(async(req,res)=>{
         res.json(error.errors)
     }
 })
-
-module.exports = {saveBill,getBill,getAllOrders,getSum,getRecentOrder,getTodaysOrders}
+const getBillsPagination = asyncHandler(async(req,res)=>{
+    const pagination = req.query.pagination ? parseInt(req.query.pagination): 10
+    const pageNumber = req.query.page ? parseInt(req.query.page) : 1
+    try {
+        var getSetOfBills = await Billing.find({}).sort({ _id: -1 }).skip((pageNumber - 1) * pagination).limit(pagination)
+        getSetOfBills = await await Product.populate(getSetOfBills,{
+            path:"products.product"
+         })
+         getSetOfBills = await await Customer.populate(getSetOfBills,{
+            path:"customer"
+         })
+        res.status(200).send(getSetOfBills)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            "err": error
+        })
+    }
+})
+module.exports = {saveBill,getBill,getAllOrders,getSum,getRecentOrder,getTodaysOrders,getBillsPagination}

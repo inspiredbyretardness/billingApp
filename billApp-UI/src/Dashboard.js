@@ -22,6 +22,7 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import RecentOrders from './RecentOrders'
+import { BillingState } from './Context/BillingProvider';
 
 function Copyright(props) {
   return (
@@ -87,10 +88,13 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const {setnavName} = BillingState();
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+  React.useEffect(()=>{
+    setnavName('Dashboard')
+  },[])
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>

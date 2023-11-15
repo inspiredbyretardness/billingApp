@@ -24,10 +24,10 @@ import {Route,Routes } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ListItems from './listItems';
 import SecondaryListItems from './secondaryListItems';
+import { BillingState } from './Context/BillingProvider';
 function App() {
-
+  const {navName}=BillingState();
   const drawerWidth = 240;
-  
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -111,7 +111,7 @@ function App() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {navName}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
