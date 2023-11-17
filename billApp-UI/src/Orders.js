@@ -122,6 +122,7 @@ function Orders() {
     setnavName('Orders')
     getTableData()
   },[])
+  
   const style = {
     position: 'absolute',
     top: '50%',

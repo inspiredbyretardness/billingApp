@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 import ListItems from './listItems';
 import SecondaryListItems from './secondaryListItems';
 import { BillingState } from './Context/BillingProvider';
+import Customer from './Customer';
 function App() {
   const {navName}=BillingState();
   const drawerWidth = 240;
@@ -156,6 +157,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/customer" element={<Customer />} />
           </Routes>
         </Box>
       </Box>

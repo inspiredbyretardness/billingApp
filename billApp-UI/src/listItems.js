@@ -28,16 +28,17 @@ const ListItems = () => {
         <ListItemIcon >
           <ShoppingCartIcon />
         </ListItemIcon>
-        
         <Link to="/orders" className="list">
-        <ListItemText primary="Orders" />
-          </Link>
+          <ListItemText primary="Orders" />
+        </Link>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <Link to="/customer">
+          <ListItemText primary="Customers" />
+        </Link>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
